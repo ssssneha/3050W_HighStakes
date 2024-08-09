@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       VEX                                                       */
+/*    Author:       3050W                                                     */
 /*    Created:      Wed Sep 25 2019                                           */
 /*    Description:  Tank Drive                                                */
 /*    This sample allows you to control the V5 Clawbot using the both         */
