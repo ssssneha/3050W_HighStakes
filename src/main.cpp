@@ -246,10 +246,16 @@ void usercontrol(void) {
 
     if (controller1.ButtonR2.pressing()){
       intake.spin(fwd, 85.0, pct);
+    } else if (controller1.ButtonR1.pressing()){
+      intake.spin(fwd,-85,pct);
+    }
+    else{
+      intake.stop(coast);
     }
 
     if (controller1.ButtonB.pressing()){
       clamp.set(!clamp.value());
+      wait(0.25, sec);
     }
 
     wait(20, msec); // Sleep the task for a short amount of time to
