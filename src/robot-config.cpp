@@ -26,6 +26,10 @@ motor catapult = motor(PORT5, ratio6_1, true);
 //Initiate and define Intake motor
 motor intake = motor(PORT4, ratio6_1, true);
 
+//Initiate and define Lift motors
+motor lift1 = motor(PORT20, ratio18_1, true);
+motor lift2 = motor(PORT19, ratio6_1, false);
+
 //Initatie and define pneumatics for wings
 pneumatics clamp = pneumatics(Brain.ThreeWirePort.H);
 pneumatics lWing = pneumatics(Brain.ThreeWirePort.A);

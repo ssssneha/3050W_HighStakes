@@ -20,6 +20,7 @@
 
 #include "vex.h"
 #include "iostream"
+#include <robot-config.h>
 using namespace vex;
 
 // A global instance of competition
@@ -50,6 +51,11 @@ void drive(int left, int right, int waitTime){
   rightBack.spin(fwd, right, pct);
   
   wait(waitTime, msec);
+}
+
+void speeen(int speed){
+  lift1.spin(fwd, speed, pct);
+  lift2.spin(fwd, speed, pct);
 }
 
 void PIDturn(float target, float accuracy = 10){
@@ -246,11 +252,14 @@ void usercontrol(void) {
 
     if (controller1.ButtonR2.pressing()){
       intake.spin(fwd, 85.0, pct);
+      speeen(-60);
     } else if (controller1.ButtonR1.pressing()){
       intake.spin(fwd,-85,pct);
+      speeen(60);
     }
     else{
       intake.stop(coast);
+      speeen(0);
     }
 
     if (controller1.ButtonB.pressing()){
