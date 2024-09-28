@@ -58,21 +58,21 @@ void speeen(int speed){
   lift2.spin(fwd, speed, pct);
 }
 
-void PIDturn(float target, float accuracy = 10){
-  float kp = 0.5; // Proportional constant
+void PIDturn(float target){
+  float kp = 0.6; // Proportional constant
   float ki = 0; // Integral constant
-  float kd = 0.125; // Derivative constant
+  float kd = 0.6; // Derivative constant
   float yawDeg = gyro4.yaw(deg);
-
+  float accuracy = 5;
   float error = target - yawDeg; // Yaw returns -180 to 180, 0 being robot's starting position.
   float totalError = 0;
   float prevError = error;
 
   while(fabs(error)>accuracy){
     yawDeg = gyro4.yaw(deg);
-    float error = target - yawDeg;
+    error = target - yawDeg;
     float output = kp*error + ki*totalError + kd*(error-prevError);
-    std::cout<<error<<","<<yawDeg<<std::endl;
+    std::cout<<"ANGLE error: "<<error<<", YawDeg: "<<yawDeg<<std::endl;
     totalError+=error;
     prevError = error;
 
@@ -85,12 +85,13 @@ void drivePID(float target, float accuracy = 1){
   //target ex. 15 inch forward
   //listing variables
   //constants
-  float kp = 1;
-  float ki = 0;
-  float kd = 0;
+  float kp = 3.0;
+  float ki = 0.0;
+  float kd = 0.4;
   //distance and radius
-  float distance = target;
-  float radius = 3.25/2;
+  std::cout<<"target "<<target<<std::endl;
+  float distance = 0.1;
+  const float radius = 3.25/2;
 
   float integral = 0;
   float derivative;
@@ -103,7 +104,7 @@ void drivePID(float target, float accuracy = 1){
   float totalError = 0;
   float prevError = error;
   float angularError;
-  
+  std::cout<<"radius : "<< radius<<std::endl;
   leftBack.resetPosition(); 
   rightBack.resetPosition();
   //convert radius and degrees of turn to distance traveled using circumference
@@ -116,16 +117,16 @@ void drivePID(float target, float accuracy = 1){
   //5/3 rotation, wheels go 1
   while(fabs(error)>accuracy)
   {
-    distance = 3/5 * ((leftBack.position(deg) + rightBack.position(deg)) / 2);
-    distance = distance * (M_PI/180) * radius;
-
+    std::cout<<"DRIVE error: "<<error<<", Distance: "<<distance<<std::endl;
+    distance = 3.0/5.0 * ((leftBack.position(deg) + rightBack.position(deg)) / 2.0) * (M_PI/180.0) * radius;
+    std::cout<<"DRIVE error: "<<3/5*(leftBack.position(deg)+rightBack.position(deg))/2 * (M_PI/180.0) * radius<<std::endl;
     yawDeg = gyro4.yaw(deg);
-
+    
     angularError = initialYaw - yawDeg;
     error = target - distance;
     derivative = error - prevError;
     integral += error;
-
+    
     if(error == 0 || error <= 0)
     {
       integral = 0;
@@ -141,6 +142,7 @@ void drivePID(float target, float accuracy = 1){
     totalError += error;
     prevError = error;
     drive(power, power, 10);
+
   }
   driveStop(hold);
   //note: retune if anything seems amiss or anything about robot is changed (such as speed).
@@ -157,6 +159,15 @@ int controllerPrint(){
   }
 leftFwd.isSpinning();
 
+}
+
+void fiveRings(){
+  drivePID(-20);
+  PIDturn(30);
+  drivePID(-6);
+  clamp.set(!clamp.value());
+  PIDturn(180);
+  PIDturn(-165);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -194,30 +205,7 @@ void autonomous(void) {
   // Insert autonomous user code here.
   // ..........................................................................
 
-    //full screen is 480-240
-    /*
-    Brain.Screen.drawRectangle(0, 0, 240, 120, red);
-    Brain.Screen.drawRectangle(240, 0, 240, 120, red);
-    Brain.Screen.drawRectangle(0, 120, 240, 120, blue);
-    Brain.Screen.drawRectangle(240, 120, 240, 120, blue);
-    waitUntil(Brain.Screen.pressing());
-    if (Brain.Screen.xPosition()<240 && Brain.Screen.yPosition()<120)
-    {
-      std::cout<<"red 1 (left)"<<std::endl;
-    }
-    if (Brain.Screen.xPosition()<240 && Brain.Screen.yPosition()>120)
-    {
-      std::cout<<"red 2 (right)"<<std::endl;
-    }
-    if (Brain.Screen.xPosition()>240 && Brain.Screen.yPosition()<120)
-    {
-      std::cout<<"blue 1 (left)"<<std::endl;
-    }
-    if (Brain.Screen.xPosition()>240 && Brain.Screen.yPosition()>120)
-    {
-      std::cout<<"blue 2 (right)"<<std::endl;
-    }
-    */
+  fiveRings();
 
 }
 
@@ -254,7 +242,7 @@ void usercontrol(void) {
       intake.spin(fwd, -60.0, pct);
       speeen(60);
     }
-    if (controller1.ButtonUp.pressing()){
+    else if (controller1.ButtonUp.pressing()){
       intake.spin(fwd, 60.0, pct);
       speeen(-60);
     }

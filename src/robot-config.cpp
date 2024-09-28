@@ -15,7 +15,7 @@ motor leftBack = motor(PORT5, ratio6_1, true);
 
 motor rightFwd = motor(PORT8, ratio6_1, false);
 motor rightMid = motor(PORT19, ratio6_1, true);
-motor rightBack = motor(PORT20, ratio6_1, false);
+motor rightBack = motor(PORT9, ratio6_1, false);
 
 inertial gyro4 = inertial(PORT17);
 
@@ -23,8 +23,8 @@ inertial gyro4 = inertial(PORT17);
 motor intake = motor(PORT16, ratio6_1, true);
 
 //Initiate and define Lift motors
-motor lift1 = motor(PORT7, ratio18_1, true);
-motor lift2 = motor(PORT6, ratio6_1, false);
+motor lift1 = motor(PORT7, ratio6_1, true);
+motor lift2 = motor(PORT6, ratio18_1, false);
 
 //Initatie and define pneumatics for wings
 pneumatics clamp = pneumatics(Brain.ThreeWirePort.H);
