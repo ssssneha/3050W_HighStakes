@@ -251,11 +251,12 @@ void usercontrol(void) {
     drive(leftJoystick, rightJoystick, 0);
 
     if (controller1.ButtonR2.pressing()){
-      intake.spin(fwd, 85.0, pct);
-      speeen(-60);
-    } else if (controller1.ButtonR1.pressing()){
-      intake.spin(fwd,-85,pct);
+      intake.spin(fwd, -60.0, pct);
       speeen(60);
+    }
+    if (controller1.ButtonUp.pressing()){
+      intake.spin(fwd, 60.0, pct);
+      speeen(-60);
     }
     else{
       intake.stop(coast);
