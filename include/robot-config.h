@@ -12,13 +12,11 @@ extern motor rightFwd;
 extern motor rightMid;
 extern motor rightBack;
 
-extern motor catapult;
 extern motor intake;
 extern motor lift1;
 extern motor lift2;
 
 extern pneumatics clamp;
-extern pneumatics lWing;
 
 extern inertial gyro4;
 

@@ -6,9 +6,9 @@ brain Brain;
 controller controller1 = controller(primary);
 
 // Initiate and define base motors
-motor leftFwd = motor(PORT3, ratio6_1, true);
+motor leftFwd = motor(PORT1, ratio6_1, true);
 motor leftMid = motor(PORT4, ratio6_1, false);
-motor leftBack = motor(PORT5, ratio6_1, true);
+motor leftBack = motor(PORT3, ratio6_1, true);
 //36 to 60
 //6 to 10
 //3 to 5
@@ -20,15 +20,14 @@ motor rightBack = motor(PORT9, ratio6_1, false);
 inertial gyro4 = inertial(PORT17);
 
 //Initiate and define Intake motor
-motor intake = motor(PORT16, ratio6_1, true);
+motor intake = motor(PORT16, ratio18_1, true);
 
 //Initiate and define Lift motors
-motor lift1 = motor(PORT7, ratio6_1, true);
-motor lift2 = motor(PORT6, ratio18_1, false);
+motor lift1 = motor(PORT5, ratio18_1, true);
+motor lift2 = motor(PORT7, ratio6_1, true);
 
 //Initatie and define pneumatics for wings
-pneumatics clamp = pneumatics(Brain.ThreeWirePort.H);
-pneumatics lWing = pneumatics(Brain.ThreeWirePort.A);
+pneumatics clamp = pneumatics(Brain.ThreeWirePort.B);
 
 
 /**
