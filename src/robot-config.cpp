@@ -23,11 +23,11 @@ inertial gyro4 = inertial(PORT17);
 motor intake = motor(PORT16, ratio18_1, true);
 
 //Initiate and define Lift motors
-motor lift1 = motor(PORT5, ratio18_1, true);
+motor lift1 = motor(PORT5, ratio18_1, false);
 motor lift2 = motor(PORT7, ratio6_1, true);
 
 //Initatie and define pneumatics for wings
-pneumatics clamp = pneumatics(Brain.ThreeWirePort.B);
+pneumatics clamp = pneumatics(Brain.ThreeWirePort.H);
 
 
 /**
