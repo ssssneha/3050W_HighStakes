@@ -53,7 +53,7 @@ void drive(int left, int right, int waitTime){
   wait(waitTime, msec);
 }
 
-void speeen(int speed){
+void belt(int speed){
   lift1.spin(fwd, speed, pct);
   lift2.spin(fwd, speed, pct);
 }
@@ -240,15 +240,15 @@ void usercontrol(void) {
 
     if (controller1.ButtonR2.pressing()){
       intake.spin(fwd, -60.0, pct);
-      speeen(60);
+      belt(60);
     }
     else if (controller1.ButtonUp.pressing()){
       intake.spin(fwd, 60.0, pct);
-      speeen(-60);
+      belt(-60);
     }
     else{
       intake.stop(coast);
-      speeen(0);
+      belt(0);
     }
 
     if (controller1.ButtonB.pressing()){
