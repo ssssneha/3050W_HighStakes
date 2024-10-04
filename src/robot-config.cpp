@@ -17,7 +17,7 @@ motor rightFwd = motor(PORT8, ratio6_1, false);
 motor rightMid = motor(PORT19, ratio6_1, true);
 motor rightBack = motor(PORT9, ratio6_1, false);
 
-inertial gyro4 = inertial(PORT17);
+inertial gyro4 = inertial(PORT11);
 
 //Initiate and define Intake motor
 motor intake = motor(PORT16, ratio18_1, true);

@@ -63,7 +63,7 @@ void PIDturn(float target){
   float ki = 0; // Integral constant
   float kd = 0.6; // Derivative constant
   float yawDeg = gyro4.yaw(deg);
-  float accuracy = 5;
+  float accuracy = 2.5;
   float error = target - yawDeg; // Yaw returns -180 to 180, 0 being robot's starting position.
   float totalError = 0;
   float prevError = error;
@@ -162,12 +162,20 @@ leftFwd.isSpinning();
 }
 
 void fiveRings(){
-  drivePID(-20);
-  PIDturn(30);
-  drivePID(-6);
+  // Path
+  drivePID(-28.485);
   clamp.set(!clamp.value());
-  PIDturn(180);
-  PIDturn(-165);
+  intake.spin(reverse);
+  belt(48);
+  PIDturn(-115);
+  drivePID(20);
+  PIDturn(-90);
+  drivePID(3);
+  /*PIDturn(270);
+  drivePID(-3);
+  PIDturn(186.489);
+  drivePID(60.494);
+  PIDturn(180);*/
 }
 
 /*---------------------------------------------------------------------------*/
@@ -239,12 +247,12 @@ void usercontrol(void) {
     drive(leftJoystick, rightJoystick, 0);
 
     if (controller1.ButtonR2.pressing()){
-      intake.spin(fwd, -60.0, pct);
-      belt(60);
+      intake.spin(fwd, -48.0, pct);
+      belt(48);
     }
     else if (controller1.ButtonUp.pressing()){
-      intake.spin(fwd, 60.0, pct);
-      belt(-60);
+      intake.spin(fwd, 48.0, pct);
+      belt(-48);
     }
     else{
       intake.stop(coast);
