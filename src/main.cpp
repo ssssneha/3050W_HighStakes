@@ -59,7 +59,7 @@ void belt(int speed){
 }
 
 void PIDturn(float target){
-  float kp = 0.6; // Proportional constant
+  float kp = 0.5; // Proportional constant
   float ki = 0; // Integral constant
   float kd = 0.6; // Derivative constant
   float yawDeg = gyro4.yaw(deg);
@@ -161,18 +161,50 @@ leftFwd.isSpinning();
 
 }
 
-void fiveRings(){
+void fiveRingsBlue(){
   // Path
-  drivePID(-28.485);
+  drivePID(-30);
   clamp.set(!clamp.value());
   intake.spin(reverse);
   belt(48);
+  wait(1, sec);
   PIDturn(-115);
-  drivePID(20);
+  drivePID(15);
   PIDturn(-90);
-  drivePID(3);
-  /*PIDturn(270);
-  drivePID(-3);
+  drivePID(9);
+  PIDturn(10);
+  drivePID(23);
+  PIDturn(115);
+  intake.stop(coast);
+  belt(0);
+  drivePID(32);
+
+  /*drivePID(-3);
+  PIDturn(186.489);
+  drivePID(60.494);
+  PIDturn(180);*/
+}
+
+void fiveRingsRed(){
+  // Path
+  drivePID(-30);
+  clamp.set(!clamp.value());
+  intake.spin(reverse);
+  belt(48);
+  wait(1, sec);
+  PIDturn(115);
+  drivePID(15);
+  PIDturn(90);
+  drivePID(9);
+  PIDturn(-10);
+  drivePID(23);
+  PIDturn(-115);
+  intake.stop(coast);
+  belt(0);
+  drivePID(32);
+
+
+  /*drivePID(-3);
   PIDturn(186.489);
   drivePID(60.494);
   PIDturn(180);*/
@@ -213,7 +245,7 @@ void autonomous(void) {
   // Insert autonomous user code here.
   // ..........................................................................
 
-  fiveRings();
+  fiveRingsRed();
 
 }
 
@@ -249,10 +281,16 @@ void usercontrol(void) {
     if (controller1.ButtonR2.pressing()){
       intake.spin(fwd, -48.0, pct);
       belt(48);
+      //48
     }
     else if (controller1.ButtonUp.pressing()){
       intake.spin(fwd, 48.0, pct);
       belt(-48);
+    }
+    else if (controller1.ButtonL2.pressing()){
+      intake.spin(fwd, -100.0, pct);
+      belt(100);
+      //48
     }
     else{
       intake.stop(coast);
