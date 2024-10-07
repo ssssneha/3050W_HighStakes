@@ -210,6 +210,16 @@ void fiveRingsRed(){
   PIDturn(180);*/
 }
 
+void safety(){
+  // Path
+  drivePID(-30);
+  clamp.set(!clamp.value());
+  wait(1, sec);
+  intake.spin(reverse);
+  belt(48);
+  wait(1, sec);
+}
+
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -245,7 +255,9 @@ void autonomous(void) {
   // Insert autonomous user code here.
   // ..........................................................................
 
-  fiveRingsRed();
+  //fiveRingsRed();
+  //fiveRingsRed();
+  safety();
 
 }
 
