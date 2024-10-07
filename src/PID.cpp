@@ -3,6 +3,16 @@
 #include <math.h>
 #include <iostream>
 
+/*
+    ██████╗ ██╗██████╗ 
+    ██╔══██╗██║██╔══██╗
+    ██████╔╝██║██║  ██║
+    ██╔═══╝ ██║██║  ██║
+    ██║     ██║██████╔╝
+    ╚═╝     ╚═╝╚═════╝ 
+
+*/
+
 void drive(int left, int right, int waitTime);
 void driveStop(brakeType E = brake);
 
