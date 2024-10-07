@@ -36,6 +36,9 @@ int drivePID(float target, float accuracy = 1);
 int PIDturn(float target);
 int autonSelector(enum AUTON strat, int side);
 
+enum AUTON strat;
+float side;
+
 void driveStop(brakeType E = brake){
   // hold - previous poisition
   // brake - stop
@@ -94,8 +97,24 @@ void pre_auton(void) {
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
-  //lWing.set(false);
-  //rWing.set(false);
+
+  if (controller1.ButtonA.pressing() && controller1.ButtonLeft.pressing()){
+    strat = fourR;
+    side = 1;
+  }
+  else if (controller1.ButtonA.pressing() && controller1.ButtonRight.pressing()){
+    strat = fourR;
+    side = -1;
+  }
+  else if (controller1.ButtonB.pressing()){
+    strat = safe;
+    side = 1;
+  }
+  else if (controller1.ButtonX.pressing()){
+    strat = skill;
+    side = 1;
+  }
+
 }
 
 /*---------------------------------------------------------------------------*/
@@ -126,18 +145,8 @@ void autonomous(void) {
     x = skills
   */
 
-  if (controller1.ButtonA.pressing() && controller1.ButtonLeft.pressing()){
-    autonSelector(fourR, -1);
-  }
-  else if (controller1.ButtonA.pressing() && controller1.ButtonRight.pressing()){
-    autonSelector(fourR, 1);
-  }
-  else if (controller1.ButtonB.pressing()){
-    autonSelector(safe, 1);
-  }
-  else if (controller1.ButtonX.pressing()){
-    autonSelector(skill, 1);
-  }
+  autonSelector(strat, side);
+  
 }
 
 /*---------------------------------------------------------------------------*/
