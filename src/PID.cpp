@@ -39,7 +39,7 @@ void PIDturn(float target){
   driveStop(hold);
 }
 
-void drivePID(float target, float accuracy = 1){
+void drivePID(float target, float accuracy){
   //target ex. 15 inch forward
   //listing variables
   //constants

@@ -20,6 +20,7 @@ extern pneumatics clamp;
 
 extern inertial gyro4;
 
+extern limit switcher;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  *

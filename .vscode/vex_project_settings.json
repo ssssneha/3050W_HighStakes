@@ -4,12 +4,12 @@
 		"json": 2
 	},
 	"project": {
-		"name": "Safety",
+		"name": "Auton Switch",
 		"description": "",
 		"creationDate": "7/26/2024, 1:45:23 PM",
 		"platform": "V5",
 		"language": "cpp",
-		"slot": 3,
+		"slot": 8,
 		"sdkVersion": "V5_20240223_11_00_00",
 		"cpp": {
 			"includePath": [],

@@ -18,10 +18,16 @@
 int drivePID(float target, float accuracy = 1);
 int PIDturn(float target);
 int belt(int speed);
-
+void fourRings(float side);
+void safety();
+void skills();
+void increment();
+void driveStop(brakeType E = brake);
 
 // 1 = blue
 // -1 = red
+
+
 
 void autonSelector(enum AUTON strat, float side){
     switch(strat){
@@ -72,4 +78,9 @@ void safety(){
 
 void skills(){
   // Path
+  intake.spin(reverse);
+  belt(48);
+  wait(2, sec);
+  intake.stop(coast);
+  belt(0);
 }

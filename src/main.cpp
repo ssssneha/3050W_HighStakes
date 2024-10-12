@@ -39,12 +39,13 @@ competition Competition;
 
 // define your global instances of motors and other devices here
 
-int drivePID(float target, float accuracy = 1);
+int drivePID(float target, float accuracy);
 int PIDturn(float target);
-int autonSelector(enum AUTON strat, int side);
+void autonSelector(enum AUTON strat, int side);
 
 enum AUTON strat;
 float side;
+int i;
 
 void driveStop(brakeType E = brake){
   // hold - previous poisition
@@ -88,6 +89,10 @@ int controllerPrint(){
   leftFwd.isSpinning();
 }
 
+void increment(){
+  i++;
+}
+
 
 /*
   ██████╗   ██████╗   ███████╗       █████╗   ██╗   ██╗  ████████╗   ██████╗   ███╗   ██╗
@@ -104,24 +109,31 @@ void pre_auton(void) {
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
+  
+  while (true){
+    switcher.pressed(increment);
 
-  if (controller1.ButtonA.pressing() && controller1.ButtonLeft.pressing()){
-    strat = fourR;
-    side = 1;
-  }
-  else if (controller1.ButtonA.pressing() && controller1.ButtonRight.pressing()){
-    strat = fourR;
-    side = -1;
-  }
-  else if (controller1.ButtonB.pressing()){
-    strat = safe;
-    side = 1;
-  }
-  else if (controller1.ButtonX.pressing()){
-    strat = skill;
-    side = 1;
+    if (i==1){
+      Brain.Screen.clearLine();
+      strat = fourR;
+      Brain.Screen.print("Four Rings");
+    }
+    else if (i==2){
+      Brain.Screen.clearLine();
+      strat = skill;
+      Brain.Screen.print("Skills");
+    }
+    else if (i==3){
+      Brain.Screen.clearLine();
+      strat = safe;
+      Brain.Screen.print("Safety");
+    } 
+    else{
+      i=0;
+    }
   }
 
+  
 }
 
 /*
@@ -134,6 +146,13 @@ void pre_auton(void) {
 */
 
 void autonomous(void) {
+   side = -1;
+
+  
+
+
+  autonSelector(strat, side);
+}
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
@@ -151,9 +170,28 @@ void autonomous(void) {
     x = skills
   */
 
+
+
+  /*if (i == 1){
+    Brain.Screen.clearLine();
+    strat = fourR;
+    Brain.Screen.print("Four Rings");
+  }
+  else if (i == 2){
+    Brain.Screen.clearLine();
+    strat = skill;
+    Brain.Screen.print("Skills");
+  }
+  else{
+    Brain.Screen.clearLine();
+    strat = safe;
+    Brain.Screen.print("Safety");
+  } 
+
+
   autonSelector(strat, side);
   
-}
+}*/
 
 /*
   ██╗   ██╗  ███████╗  ███████╗  ██████╗        ██████╗   ██████╗   ███╗   ██╗  ████████╗  ██████╗    ██████╗   ██╗     

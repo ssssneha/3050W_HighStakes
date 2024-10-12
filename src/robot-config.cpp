@@ -1,5 +1,5 @@
 #include "vex.h"
-
+using namespace vex;
 // A global instance of brain used for printing to the V5 brain screen
 brain Brain;
 
@@ -29,7 +29,7 @@ motor lift2 = motor(PORT7, ratio6_1, true);
 //Initatie and define pneumatics for wings
 pneumatics clamp = pneumatics(Brain.ThreeWirePort.H);
 
-
+limit switcher = limit(Brain.ThreeWirePort.A);
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  *
