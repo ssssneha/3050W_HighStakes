@@ -42,6 +42,7 @@ competition Competition;
 int drivePID(float target, float accuracy);
 int PIDturn(float target);
 void autonSelector(enum AUTON strat, int side);
+void skills();
 
 enum AUTON strat;
 float side;
@@ -110,7 +111,7 @@ void pre_auton(void) {
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
   
-  while (true){
+  /*while (true){
     switcher.pressed(increment);
 
     if (i==1){
@@ -132,6 +133,7 @@ void pre_auton(void) {
       i=0;
     }
   }
+  */
 
   
 }
@@ -146,13 +148,6 @@ void pre_auton(void) {
 */
 
 void autonomous(void) {
-   side = -1;
-
-  
-
-
-  autonSelector(strat, side);
-}
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
@@ -190,8 +185,16 @@ void autonomous(void) {
 
 
   autonSelector(strat, side);
+  s
   
-}*/
+*/
+
+  //side = -1;
+  //autonSelector(skill, side);
+  intake.spin(reverse);
+  belt(45);
+
+}
 
 /*
   ██╗   ██╗  ███████╗  ███████╗  ██████╗        ██████╗   ██████╗   ███╗   ██╗  ████████╗  ██████╗    ██████╗   ██╗     

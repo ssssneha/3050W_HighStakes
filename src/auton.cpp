@@ -29,7 +29,7 @@ void driveStop(brakeType E = brake);
 
 
 
-void autonSelector(enum AUTON strat, float side){
+void autonSelector(AUTON strat, float side){
     switch(strat){
         case fourR:
             fourRings(side);
@@ -83,4 +83,6 @@ void skills(){
   wait(2, sec);
   intake.stop(coast);
   belt(0);
+  drivePID(5);
+  PIDturn(90);
 }
