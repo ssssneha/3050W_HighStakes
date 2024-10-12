@@ -78,11 +78,22 @@ void safety(){
 
 void skills(){
   // Path
-  intake.spin(reverse);
-  belt(48);
+  //drivePID(50);
+  //intake.spin(reverse);
+  intake.setVelocity(45, percent);
+  belt(55);
   wait(2, sec);
   intake.stop(coast);
   belt(0);
-  drivePID(5);
-  PIDturn(90);
+  drivePID(13);
+  PIDturn(-90);
+  wait(200, msec);
+  drivePID(-18);
+  wait(500, msec);
+  clamp.set(!clamp.value());
+  PIDturn(25);
+  intake.spin(reverse);
+  belt(45);
+  drivePID(48);
+  
 }

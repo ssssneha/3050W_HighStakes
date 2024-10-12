@@ -190,9 +190,7 @@ void autonomous(void) {
 */
 
   //side = -1;
-  //autonSelector(skill, side);
-  intake.spin(reverse);
-  belt(45);
+  autonSelector(skill, side);
 
 }
 

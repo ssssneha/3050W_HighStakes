@@ -17,9 +17,9 @@ void drive(int left, int right, int waitTime);
 void driveStop(brakeType E = brake);
 
 void PIDturn(float target){
-  float kp = 0.5; // Proportional constant
-  float ki = 0; // Integral constant
-  float kd = 0.6; // Derivative constant
+  float kp = 0.4; // Proportional constant
+  float ki = 0.001; // Integral constant
+  float kd = 0.9; // Derivative constant
   float yawDeg = gyro4.yaw(deg);
   float accuracy = 2.5;
   float error = target - yawDeg; // Yaw returns -180 to 180, 0 being robot's starting position.
@@ -43,9 +43,9 @@ void drivePID(float target, float accuracy){
   //target ex. 15 inch forward
   //listing variables
   //constants
-  float kp = 3.0;
+  float kp = 6.0;
   float ki = 0.0;
-  float kd = 0.4;
+  float kd = 0.8;
   //distance and radius
   std::cout<<"target "<<target<<std::endl;
   float distance = 0.1;
