@@ -14,3 +14,4 @@ public:
 };
 extern point robot;
 int odometery();
+void turnToPoint();

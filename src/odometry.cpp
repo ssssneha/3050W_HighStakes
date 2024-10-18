@@ -18,15 +18,20 @@ point robot = point(0, 0);
 
 #include <string>
 
+int drivePID(float target, float accuracy = 1);
+int PIDturn(float target);
+
 void point::print()
 {
 	std::cout << x << "," << y << std::endl;
 }
+
 float round(float var)
 {
 	float value = (int)(var * 100 + .5);
 	return (float)value / 100;
 }
+
 bool point::equals(point p1)
 {
 	if ((round(this->x) == round(p1.x)) and (round(this->y) == round(p1.y)))
@@ -35,6 +40,8 @@ bool point::equals(point p1)
 	}
 	return false;
 }
+
+
 /**
  * @brief odometry
  */

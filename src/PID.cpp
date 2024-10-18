@@ -43,7 +43,7 @@ void drivePID(float target, float accuracy){
   //target ex. 15 inch forward
   //listing variables
   //constants
-  float kp = 6.0;
+  float kp = 4.5;
   float ki = 0.0;
   float kd = 0.8;
   //distance and radius
