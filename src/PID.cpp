@@ -13,7 +13,7 @@
 
 */
 
-void drive(int left, int right, int waitTime);
+void drive(float left, float right, int waitTime);
 void driveStop(brakeType E = brake);
 
 void PIDturn(float target){

@@ -61,7 +61,7 @@ void driveStop(brakeType E = brake){
   rightBack.stop(E);
 }
 
-void drive(int left, int right, int waitTime){
+void drive(float left, float right, int waitTime){
   leftFwd.spin(fwd, left, pct);
   leftMid.spin(fwd, left, pct);
   leftBack.spin(fwd, left, pct);
@@ -162,35 +162,11 @@ void autonomous(void) {
 
     a = fourRings
     b = safety
-    x = skills
+    x = skills (-1` side)
   */
 
-
-
-  /*if (i == 1){
-    Brain.Screen.clearLine();
-    strat = fourR;
-    Brain.Screen.print("Four Rings");
-  }
-  else if (i == 2){
-    Brain.Screen.clearLine();
-    strat = skill;
-    Brain.Screen.print("Skills");
-  }
-  else{
-    Brain.Screen.clearLine();
-    strat = safe;
-    Brain.Screen.print("Safety");
-  } 
-
-
-  autonSelector(strat, side);
-  s
-  
-*/
-
-  //side = -1;
-  autonSelector(skill, side);
+  side = 1;
+  autonSelector(goalRush, side);
 
 }
 
@@ -217,18 +193,23 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-    int leftJoystick = controller1.Axis3.position();
-    int rightJoystick = controller1.Axis2.position();
+    float leftJoystick = controller1.Axis3.position();
+    float rightJoystick = controller1.Axis2.position();
 
-    drive(leftJoystick, rightJoystick, 0);
+    float a = 2;
+
+    float left_output = ((100*(pow(fabs(leftJoystick),a)))/pow(100,a))*(leftJoystick/fabs(leftJoystick));
+    float right_output = ((100*(pow(fabs(rightJoystick),a)))/pow(100,a))*(rightJoystick/fabs(rightJoystick));
+
+    drive(left_output, right_output, 0);
 
     if (controller1.ButtonR2.pressing()){
-      intake.spin(fwd, -48.0, pct);
+      intake.spin(fwd, -100.0, pct);
       belt(48);
       //48
     }
     else if (controller1.ButtonUp.pressing()){
-      intake.spin(fwd, 48.0, pct);
+      intake.spin(fwd, 100.0, pct);
       belt(-48);
     }
     else if (controller1.ButtonL2.pressing()){

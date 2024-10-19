@@ -21,6 +21,7 @@ int belt(int speed);
 void fourRings(float side);
 void safety();
 void skills();
+void rush();
 void increment();
 void driveStop(brakeType E = brake);
 
@@ -38,6 +39,8 @@ void autonSelector(AUTON strat, float side){
             safety();
         case skill:
             skills();
+        case goalRush:
+            rush();
         break;
     }
 }
@@ -80,8 +83,8 @@ void skills(){
   // Path
   //drivePID(50);
   //intake.spin(reverse);
-  intake.setVelocity(45, percent);
-  belt(55);
+  intake.setVelocity(48, percent);
+  belt(48);
   wait(2, sec);
   intake.stop(coast);
   belt(0);
@@ -96,4 +99,13 @@ void skills(){
   belt(45);
   drivePID(48);
   
+}
+
+void rush(){
+  drivePID(-30);
+  wait(500, msec);
+  PIDturn(30);
+  drivePID(-8);
+  clamp.set(!clamp.value());
+
 }
