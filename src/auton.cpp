@@ -15,7 +15,7 @@
 */
 
 
-int drivePID(float target, float accuracy = 1);
+int drivePID(float target, float accuracy = 1, float kp = 4.5);
 int PIDturn(float target);
 int belt(int speed);
 void fourRings(float side);
@@ -83,7 +83,7 @@ void skills(){
   // Path
   //drivePID(50);
   //intake.spin(reverse);
-  intake.setVelocity(48, percent);
+  intake.setVelocity(-48, percent);
   belt(48);
   wait(2, sec);
   intake.stop(coast);
@@ -94,11 +94,13 @@ void skills(){
   drivePID(-18);
   wait(500, msec);
   clamp.set(!clamp.value());
-  PIDturn(25);
+  PIDturn(35);
   intake.spin(reverse);
   belt(45);
   drivePID(48);
-  
+  PIDturn(177);
+  drivePID(45,1,2);
+  PIDturn(45);
 }
 
 void rush(){
