@@ -227,6 +227,11 @@ void usercontrol(void) {
       wait(0.25, sec);
     }
 
+    if (controller1.ButtonDown.pressing()){
+      steak.set(!steak.value());
+      wait(0.25, sec);
+    }
+
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }

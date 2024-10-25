@@ -17,6 +17,7 @@ extern motor lift1;
 extern motor lift2;
 
 extern pneumatics clamp;
+extern pneumatics steak;
 
 extern inertial gyro4;
 

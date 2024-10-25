@@ -29,6 +29,8 @@ motor lift2 = motor(PORT21, ratio6_1, true);
 //Initatie and define pneumatics for wings
 pneumatics clamp = pneumatics(Brain.ThreeWirePort.H);
 
+pneumatics steak = pneumatics(Brain.ThreeWirePort.G);
+
 limit switcher = limit(Brain.ThreeWirePort.A);
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
