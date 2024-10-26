@@ -79,8 +79,6 @@ int odometery()
 	double deltaY;
 	// gyro4.datarate(10);
 
-	waitUntil(!gyro4.isCalibrating());
-	robot = point(0, 0);
 
 	rightFwd.resetPosition();
 	leftFwd.resetPosition();
@@ -245,3 +243,4 @@ void arcTurn(float distance, float radius, float speed) {
 	leftFwd.stop();
 	rightFwd.stop();
 }
+

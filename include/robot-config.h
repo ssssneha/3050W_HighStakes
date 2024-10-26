@@ -20,6 +20,7 @@ extern pneumatics clamp;
 extern pneumatics steak;
 
 extern inertial gyro4;
+extern optical color;
 
 extern limit switcher;
 /**

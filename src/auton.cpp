@@ -4,6 +4,7 @@
 #include <math.h>
 #include <iostream>
 #include <string>
+#include <odometry.h>
 
 /*
      █████╗   ██╗   ██╗  ████████╗   ██████╗   ███╗   ██╗
@@ -22,8 +23,11 @@ void fourRings(float side);
 void safety();
 void skills();
 void rush();
+void test();
 void increment();
 void driveStop(brakeType E = brake);
+void turnToPoint(point target);
+void arcTurn(float distance, float radius, float speed);
 
 // 1 = blue
 // -1 = red
@@ -37,8 +41,10 @@ void autonSelector(AUTON strat, float side){
         break;
         case safe:
             safety();
+        break;
         case skill:
             skills();
+        break;
         case goalRush:
             rush();
         break;
@@ -104,10 +110,33 @@ void skills(){
 }
 
 void rush(){
-  drivePID(-30);
+  intake.setVelocity(48, percent);
+  drivePID(-28);
   wait(500, msec);
-  PIDturn(30);
-  drivePID(-8);
+  PIDturn(25);
+  drivePID(-12,1,3.5);
   clamp.set(!clamp.value());
+  belt(45);
+  wait(500, msec);
+  belt(0);
+  PIDturn(-15);
+  intake.spin(reverse);
+  drivePID(15,1,3.5);
+  wait(500, msec);
+  clamp.set(!clamp.value());
+  PIDturn(90);
+  drivePID(-20);
+  drivePID(-8, 1, 3.0);
+  clamp.set(!clamp.value());
+  belt(48);
+  wait(500, msec);
+  intake.stop();
+  PIDturn(225);
+  drivePID(10);
 
+
+}
+
+void test(){
+  turnToPoint(point(25,25));
 }
