@@ -24,7 +24,9 @@ void safety();
 void skills();
 void rush();
 void test();
+void winPoint();
 void increment();
+void negative();
 void driveStop(brakeType E = brake);
 void turnToPoint(point target);
 void arcTurn(float distance, float radius, float speed);
@@ -46,7 +48,7 @@ void autonSelector(AUTON strat, float side){
             skills();
         break;
         case goalRush:
-            rush();
+            negative();
         break;
     }
 }
@@ -133,8 +135,45 @@ void rush(){
   intake.stop();
   PIDturn(225);
   drivePID(10);
+}
 
+// working
+void winPoint(){
+  intake.setVelocity(100, percent);
+  drivePID(-27,1,3.5);
+  clamp.set(!clamp.value());
+  //wait(1, sec);
+  intake.spin(reverse);
+  belt(48);
+  wait(1, sec);
+  PIDturn(-90);
+  //belt(0);
+  drivePID(24);
+  wait(500, msec);
+  intake.spin(forward);
+  PIDturn(65);
+  wait(500, msec);
+  drivePID(48);
+  PIDturn(90);
+  clamp.set(!clamp.value());
+  intake.spin(reverse);
+  drivePID(24);
+  PIDturn(45);
+  drivePID(-13,1,3.5);
+  clamp.set(!clamp.value());
+  belt(48);  
+  PIDturn(90);
+  drivePID(22);
+  PIDturn(-75);
+  drivePID(65);  
+}
 
+void negative(){
+  drivePID(-14);
+  PIDturn(-90);
+  drivePID(-5);
+  lift2.setVelocity(43, percent);
+  lift2.spinFor(1.27, rev);
 }
 
 void test(){
