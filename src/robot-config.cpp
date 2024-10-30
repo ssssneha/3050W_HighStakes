@@ -38,7 +38,7 @@ pneumatics StakeMech = pneumatics(Brain.ThreeWirePort.G);
 limit switcher = limit(Brain.ThreeWirePort.A);
 
 //Initiate and define AutoClamp
-distance AutoClamp = distance(Brain.ThreeWirePort.B);
+distance AutoClamp = distance(PORT1);
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
