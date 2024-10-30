@@ -228,7 +228,7 @@ void usercontrol(void) {
     }
 
     if (controller1.ButtonDown.pressing()){
-      steak.set(!steak.value());
+      StakeMech.set(!StakeMech.value());
       wait(0.25, sec);
     }
 
