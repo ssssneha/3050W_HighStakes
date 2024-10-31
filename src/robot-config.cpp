@@ -21,7 +21,7 @@ motor rightBack = motor(PORT9, ratio6_1, false);
 inertial gyro4 = inertial(PORT11);
 
 //Initiate and define Optical sensor
-optical color = optical(PORT1);
+optical colorS = optical(PORT19);
 
 //Initiate and define Intake motor
 motor intake = motor(PORT12, ratio18_1, true);
@@ -38,7 +38,7 @@ pneumatics StakeMech = pneumatics(Brain.ThreeWirePort.G);
 limit switcher = limit(Brain.ThreeWirePort.A);
 
 //Initiate and define AutoClamp
-distance AutoClamp = distance(PORT1);
+distance dist = distance(PORT7);
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

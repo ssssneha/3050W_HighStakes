@@ -20,11 +20,11 @@ extern pneumatics clamp;
 extern pneumatics StakeMech;
 
 extern inertial gyro4;
-extern optical color;
+extern optical colorS;
 
 extern limit switcher;
 
-extern distance AutoClamp;
+extern distance dist;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  *

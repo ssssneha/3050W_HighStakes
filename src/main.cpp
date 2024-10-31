@@ -44,6 +44,9 @@ int PIDturn(float target);
 void autonSelector(enum AUTON strat, int side);
 void skills();
 
+double redirect(color alliance);
+void redirectWall(color alliance);
+
 enum AUTON strat;
 float side;
 int i;
@@ -78,13 +81,21 @@ void belt(int speed){
   lift2.spin(fwd, speed, pct);
 }
 
+void clampAuto(bool i){
+  bool cont = true;
+  while(cont){
+    if((dist.objectDistance(mm) < 25) || (i == false)){
+      clamp.set(!clamp.value());
+      wait(0.25, sec);
+      cont = false;
+    }
+  }
+}
+
 int controllerPrint(){
   while(true){
     controller1.Screen.setCursor(0, 0);
-    controller1.Screen.print("L Spin = %.lf", leftFwd.isSpinning());
-    controller1.Screen.setCursor(1, 0);
-    controller1.Screen.print("R Spin = %.lf", rightFwd.isSpinning());
-    controller1.Screen.print("Auton side");
+    controller1.Screen.print("Color = ", colorS.hue());
     this_thread::sleep_for(50);
   }
   leftFwd.isSpinning();
@@ -179,10 +190,23 @@ void autonomous(void) {
    ╚═════╝   ╚══════╝  ╚══════╝  ╚═╝  ╚═╝       ╚═════╝   ╚═════╝   ╚═╝  ╚═══╝     ╚═╝     ╚═╝  ╚═╝   ╚═════╝   ╚══════╝
 */
 
-void usercontrol(void) {
+void usercontrol(void){
   thread controllerPrinting = thread(controllerPrint); // Allows controller print function to run on it's own.
   // Use thread to run too things at a time.
+  bool i = false;
+  color alliance;
+  side = 1;
 
+  if(side == 1){
+    alliance = blue;
+  }
+  else if(side == -1){
+    alliance = red;
+  }
+  int speed;
+  colorS.setLightPower(100,pct);
+  timer Timer = timer();
+  Timer = 100;
   // User control code here, inside the loop
   while (1) {
     // This is the main execution loop for the user control program.
@@ -202,10 +226,29 @@ void usercontrol(void) {
     float right_output = ((100*(pow(fabs(rightJoystick),a)))/pow(100,a))*(rightJoystick/fabs(rightJoystick));
 
     drive(left_output, right_output, 0);
+    if(colorS.isNearObject()){
+      std::cout<<"yay";
+      colorS.setLight(ledState::on);
+    }
+    else{
+      colorS.setLight(ledState::off);
+    }
+
+    if((colorS.hue() < 29 or colorS.hue()>340) and colorS.isNearObject() && Timer.value()>0.25){
+      Timer.reset();
+      speed=0;
+    }else if(Timer.value()<0.25){
+      speed=0;
+    }
+    else{
+      speed=48;
+    }
+    
 
     if (controller1.ButtonR2.pressing()){
       intake.spin(fwd, -100.0, pct);
-      belt(48);
+      belt(speed);
+      std::cout<<"Color: "<<colorS.hue()<<std::endl;
       //48
     }
     else if (controller1.ButtonUp.pressing()){
@@ -223,8 +266,8 @@ void usercontrol(void) {
     }
 
     if (controller1.ButtonB.pressing()){
-      clamp.set(!clamp.value());
-      wait(0.25, sec);
+      i = !i;
+      clampAuto(i);
     }
 
     if (controller1.ButtonDown.pressing()){
