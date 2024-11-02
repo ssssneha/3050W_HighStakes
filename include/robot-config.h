@@ -17,10 +17,14 @@ extern motor lift1;
 extern motor lift2;
 
 extern pneumatics clamp;
+extern pneumatics StakeMech;
 
 extern inertial gyro4;
+extern optical colorS;
 
 extern limit switcher;
+
+extern distance dist;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  *

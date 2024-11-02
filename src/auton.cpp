@@ -4,6 +4,7 @@
 #include <math.h>
 #include <iostream>
 #include <string>
+#include <odometry.h>
 
 /*
      █████╗   ██╗   ██╗  ████████╗   ██████╗   ███╗   ██╗
@@ -15,14 +16,20 @@
 */
 
 
-int drivePID(float target, float accuracy = 1);
+int drivePID(float target, float accuracy = 1, float kp = 4.5);
 int PIDturn(float target);
 int belt(int speed);
 void fourRings(float side);
 void safety();
 void skills();
+void rush();
+void test();
+void winPoint();
 void increment();
+void negative();
 void driveStop(brakeType E = brake);
+void turnToPoint(point target);
+void arcTurn(float distance, float radius, float speed);
 
 // 1 = blue
 // -1 = red
@@ -36,8 +43,12 @@ void autonSelector(AUTON strat, float side){
         break;
         case safe:
             safety();
+        break;
         case skill:
             skills();
+        break;
+        case goalRush:
+            negative();
         break;
     }
 }
@@ -80,8 +91,8 @@ void skills(){
   // Path
   //drivePID(50);
   //intake.spin(reverse);
-  intake.setVelocity(45, percent);
-  belt(55);
+  intake.setVelocity(-48, percent);
+  belt(48);
   wait(2, sec);
   intake.stop(coast);
   belt(0);
@@ -91,9 +102,80 @@ void skills(){
   drivePID(-18);
   wait(500, msec);
   clamp.set(!clamp.value());
-  PIDturn(25);
+  PIDturn(35);
   intake.spin(reverse);
   belt(45);
   drivePID(48);
-  
+  PIDturn(177);
+  drivePID(45,1,2);
+  PIDturn(45);
+}
+
+void rush(){
+  intake.setVelocity(48, percent);
+  drivePID(-28);
+  wait(500, msec);
+  PIDturn(25);
+  drivePID(-12,1,3.5);
+  clamp.set(!clamp.value());
+  belt(45);
+  wait(500, msec);
+  belt(0);
+  PIDturn(-15);
+  intake.spin(reverse);
+  drivePID(15,1,3.5);
+  wait(500, msec);
+  clamp.set(!clamp.value());
+  PIDturn(90);
+  drivePID(-20);
+  drivePID(-8, 1, 3.0);
+  clamp.set(!clamp.value());
+  belt(48);
+  wait(500, msec);
+  intake.stop();
+  PIDturn(225);
+  drivePID(10);
+}
+
+// working
+void winPoint(){
+  intake.setVelocity(100, percent);
+  drivePID(-27,1,3.5);
+  clamp.set(!clamp.value());
+  //wait(1, sec);
+  intake.spin(reverse);
+  belt(48);
+  wait(1, sec);
+  PIDturn(-90);
+  //belt(0);
+  drivePID(24);
+  wait(500, msec);
+  intake.spin(forward);
+  PIDturn(65);
+  wait(500, msec);
+  drivePID(48);
+  PIDturn(90);
+  clamp.set(!clamp.value());
+  intake.spin(reverse);
+  drivePID(24);
+  PIDturn(45);
+  drivePID(-13,1,3.5);
+  clamp.set(!clamp.value());
+  belt(48);  
+  PIDturn(90);
+  drivePID(22);
+  PIDturn(-75);
+  drivePID(65);  
+}
+
+void negative(){
+  drivePID(-14);
+  PIDturn(-90);
+  drivePID(-5);
+  lift2.setVelocity(43, percent);
+  lift2.spinFor(1.27, rev);
+}
+
+void test(){
+  turnToPoint(point(25,25));
 }

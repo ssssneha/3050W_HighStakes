@@ -4,6 +4,7 @@ enum AUTON
 {
     fourR,
     safe,
-    skill
+    skill,
+    goalRush,
 };
 void autonSelector(enum AUTON strat, float side);

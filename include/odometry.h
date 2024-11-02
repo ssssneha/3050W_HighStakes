@@ -14,4 +14,6 @@ public:
 };
 extern point robot;
 int odometery();
-void turnToPoint();
+void turnToPoint(point target);
+void driveToPoint(point target);
+void arcTurn(float radius, float angle, float speed);

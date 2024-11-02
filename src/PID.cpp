@@ -13,7 +13,7 @@
 
 */
 
-void drive(int left, int right, int waitTime);
+void drive(float left, float right, int waitTime);
 void driveStop(brakeType E = brake);
 
 void PIDturn(float target){
@@ -39,11 +39,10 @@ void PIDturn(float target){
   driveStop(hold);
 }
 
-void drivePID(float target, float accuracy){
+void drivePID(float target, float accuracy, float kp){
   //target ex. 15 inch forward
   //listing variables
   //constants
-  float kp = 4.5;
   float ki = 0.0;
   float kd = 0.8;
   //distance and radius

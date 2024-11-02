@@ -79,8 +79,6 @@ int odometery()
 	double deltaY;
 	// gyro4.datarate(10);
 
-	waitUntil(!gyro4.isCalibrating());
-	robot = point(0, 0);
 
 	rightFwd.resetPosition();
 	leftFwd.resetPosition();
@@ -134,3 +132,115 @@ int odometery()
 	}
 	return 1;
 }
+
+void turnToPoint(point target) {
+	float targetAngle = atan2(target.y - robot.y, target.x - robot.x);
+	targetAngle = fmod(targetAngle, 2 * M_PI); // Normalize the angle
+
+	float currentAngle = fmod(gyro4.rotation() * M_PI / 180, 2 * M_PI);
+	float angleDifference = targetAngle - currentAngle;
+
+	// Normalize the angle difference to be within -PI to PI
+	if (angleDifference > M_PI) {
+		angleDifference -= 2 * M_PI;
+	} else if (angleDifference < -M_PI) {
+		angleDifference += 2 * M_PI;
+	}
+
+	PIDturn(angleDifference * 180 / M_PI); // Convert radians to degrees for PIDturn
+}
+
+void driveToPoint(point target) {
+	const float positionTolerance = 1.0; // Tolerance for reaching the target point
+	const float angleTolerance = 0.1; // Tolerance for reaching the target angle in radians
+
+	while (true) {
+		// Calculate the distance to the target point
+		float deltaX = target.x - robot.x;
+		float deltaY = target.y - robot.y;
+		float distanceToTarget = sqrt(deltaX * deltaX + deltaY * deltaY);
+
+		// Calculate the target angle
+		float targetAngle = atan2(deltaY, deltaX);
+		targetAngle = fmod(targetAngle, 2 * M_PI); // Normalize the angle
+
+		// Get the current angle
+		float currentAngle = fmod(gyro4.rotation() * M_PI / 180, 2 * M_PI);
+		float angleDifference = targetAngle - currentAngle;
+
+		if (angleDifference > M_PI) {
+			angleDifference -= 2 * M_PI;
+		} else if (angleDifference < -M_PI) {
+			angleDifference += 2 * M_PI;
+		}
+
+		// If the robot is in position, stop
+		if (distanceToTarget < positionTolerance) {
+			break;
+		}
+
+		// Turn to the target angle
+		PIDturn(angleDifference * 180 / M_PI); // Convert radians to degrees for PIDturn
+
+		// Drive forward to the target point
+		drivePID(distanceToTarget);
+
+		this_thread::sleep_for(10);
+	}
+}
+
+void arcTurn(float distance, float radius, float speed) {
+	const float wheelBase = 12.0; // Distance between the left and right wheels of the robot in inches
+	const float circumference = 2 * M_PI * radius;
+	const float angleToTurn = (distance / circumference) * 360; // Angle to turn in degrees
+
+	// Calculate the target angle for the arc turn
+	float targetAngle = fmod(gyro4.rotation() + angleToTurn, 360);
+
+	// Calculate the distance each wheel needs to travel
+	float innerWheelDistance = (radius - (wheelBase / 2)) * (angleToTurn * M_PI / 180);
+	float outerWheelDistance = (radius + (wheelBase / 2)) * (angleToTurn * M_PI / 180);
+
+	// Calculate the speed ratio between the inner and outer wheels
+	float speedRatio = innerWheelDistance / outerWheelDistance;
+
+	// Set the speed for the outer wheel
+	float outerWheelSpeed = speed; // Set the speed for the outer wheel
+
+	// Set the speed for the inner wheel based on the speed ratio
+	float innerWheelSpeed = outerWheelSpeed * speedRatio;
+
+	// Reset the motor positions
+	rightFwd.resetPosition();
+	leftFwd.resetPosition();
+
+	// Start the arc turn
+	while (true) {
+		float currentAngle = fmod(gyro4.rotation(), 360);
+		float angleDifference = targetAngle - currentAngle;
+
+		// Normalize the angle difference to be within -180 to 180
+		if (angleDifference > 180) {
+			angleDifference -= 360;
+		} else if (angleDifference < -180) {
+			angleDifference += 360;
+		}
+
+		// If the robot has turned the desired angle, stop
+		if (fabs(angleDifference) < 1) {
+			break;
+		}
+
+		// Set the motor speeds for the arc turn
+		leftFwd.spin(forward, innerWheelSpeed, percent);
+		rightFwd.spin(forward, outerWheelSpeed, percent);
+
+		// Small delay to prevent overloading the CPU
+		this_thread::sleep_for(10);
+	}
+
+	// Stop the motors
+	leftFwd.stop();
+	rightFwd.stop();
+}
+
