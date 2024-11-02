@@ -247,7 +247,7 @@ void usercontrol(void){
 
     if (controller1.ButtonR2.pressing()){
       intake.spin(fwd, -100.0, pct);
-      belt(speed);
+      belt(100);
       std::cout<<"Color: "<<colorS.hue()<<std::endl;
       //48
     }

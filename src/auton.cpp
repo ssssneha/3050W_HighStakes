@@ -169,11 +169,40 @@ void winPoint(){
 }
 
 void negative(){
-  drivePID(-14);
+  drivePID(-15);
   PIDturn(-90);
-  drivePID(-5);
-  lift2.setVelocity(43, percent);
-  lift2.spinFor(1.27, rev);
+  drivePID(-6);
+  lift2.setVelocity(100, percent);
+  intake.setVelocity(100, percent);
+  lift2.spinFor(1, rev, false);
+  wait(100, msec);
+  lift2.spinFor(1, rev, false);
+  intake.spin(forward);
+  wait(2000, msec);
+  drivePID(15);
+  // 
+  PIDturn(-180);
+  wait(100, msec);
+  PIDturn(-225);
+  wait(100, msec);
+  drivePID(24);
+  drivePID(4, 1, 3.0);
+
+  /* 
+  clamp.set(!clamp.value());
+  PIDturn(45);
+  intake.spin(reverse);
+  belt(100);
+  drivePID(24);
+  PIDturn(0);
+  drivePID(10);
+  PIDturn(-135);
+  drivePID(24);
+  PIDturn(-90);
+  drivePID(24);
+  PIDturn(-45);
+  drivePID(24);
+  */
 }
 
 void test(){
