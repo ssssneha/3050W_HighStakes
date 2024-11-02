@@ -17,9 +17,9 @@ void drive(float left, float right, int waitTime);
 void driveStop(brakeType E = brake);
 
 void PIDturn(float target){
-  float kp = 0.4; // Proportional constant
+  float kp = 0.35; // Proportional constant
   float ki = 0.001; // Integral constant
-  float kd = 0.9; // Derivative constant
+  float kd = 0.89; // Derivative constant
   float yawDeg = gyro4.yaw(deg);
   float accuracy = 2.5;
   float error = target - yawDeg; // Yaw returns -180 to 180, 0 being robot's starting position.

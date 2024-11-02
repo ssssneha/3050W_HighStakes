@@ -178,26 +178,28 @@ void negative(){
   wait(100, msec);
   lift2.spinFor(1, rev, false);
   intake.spin(forward);
-  wait(2000, msec);
+  wait(1000, msec);
   drivePID(15);
-  // 
-  PIDturn(-180);
+  // turn to and clamp mogo
+  PIDturn(140);
   wait(100, msec);
-  PIDturn(-225);
-  wait(100, msec);
-  drivePID(24);
-  drivePID(4, 1, 3.0);
+  drivePID(-24);
+  drivePID(-6, 1, 3.5);
+  clamp.set(!clamp.value());
+  // turn to and intake the rings
+  PIDturn(-35);
+  intake.spin(reverse);
+  belt(83);
+  drivePID(15);
+  wait(500, msec);
+  PIDturn(-5);
+  drivePID(7);
+  PIDturn(95);
+  drivePID(10,1,5);
+  PIDturn(75);
+  drivePID(20,1,5);
 
   /* 
-  clamp.set(!clamp.value());
-  PIDturn(45);
-  intake.spin(reverse);
-  belt(100);
-  drivePID(24);
-  PIDturn(0);
-  drivePID(10);
-  PIDturn(-135);
-  drivePID(24);
   PIDturn(-90);
   drivePID(24);
   PIDturn(-45);
