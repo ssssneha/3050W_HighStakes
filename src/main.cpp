@@ -84,8 +84,8 @@ void belt(int speed){
 void clampAuto(bool i){
   bool cont = true;
   while(cont){
-    if((dist.objectDistance(mm) < 25) || (i == false)){
-      clamp.set(!clamp.value());
+    if((dist.objectDistance(mm) == 10) || (i == false)){ //example 10 mm for clamp
+      Controller.rumble('..');
       wait(0.25, sec);
       cont = false;
     }
