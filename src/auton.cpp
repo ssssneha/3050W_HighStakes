@@ -91,12 +91,28 @@ void skills(){
   // Path
   //drivePID(50);
   //intake.spin(reverse);
-  intake.setVelocity(-48, percent);
-  belt(48);
-  wait(2, sec);
-  intake.stop(coast);
-  belt(0);
-  drivePID(13);
+  lift2.setVelocity(100, percent);
+  intake.setVelocity(100, percent);
+  lift2.spinFor(1, rev, false);
+  wait(100, msec);
+  lift2.spinFor(1, rev, false);
+  drivePID(-3);
+  PIDturn(-115);
+  drivePID(-24,1,3.0);
+  clamp.set(!clamp.value());
+  intake.spin(reverse);
+  belt(100);
+  PIDturn(0);
+  drivePID(24);
+  PIDturn(50);
+  drivePID(35);
+  drivePID(-10);
+  wait(500, msec);
+  PIDturn(180);
+  drivePID(48);
+
+
+  /*drivePID(13);
   PIDturn(-90);
   wait(200, msec);
   drivePID(-18);
@@ -109,6 +125,7 @@ void skills(){
   PIDturn(177);
   drivePID(45,1,2);
   PIDturn(45);
+  */
 }
 
 void rush(){

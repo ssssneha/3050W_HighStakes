@@ -177,7 +177,7 @@ void autonomous(void) {
   */
 
   side = 1;
-  autonSelector(goalRush, side);
+  autonSelector(skill, side);
 
 }
 
