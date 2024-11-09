@@ -2,9 +2,15 @@
 
 enum AUTON
 {
-    fourR,
-    safe,
+    positiveSide,
+    negativeWP,
+    soloWP,
     skill,
-    goalRush,
 };
+
 void autonSelector(enum AUTON strat, float side);
+void negative(float side);
+void winPoint(float side);
+void positive(float side);
+void fourRings(float side);
+void skills();

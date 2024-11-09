@@ -40,7 +40,7 @@ competition Competition;
 // define your global instances of motors and other devices here
 
 int drivePID(float target, float accuracy);
-int PIDturn(float target);
+int PIDturn(float target, float accuracy);
 void autonSelector(enum AUTON strat, int side);
 void skills();
 
@@ -49,7 +49,7 @@ void redirectWall(color alliance);
 
 enum AUTON strat;
 float side;
-int i;
+int i=1;
 
 void driveStop(brakeType E = brake){
   // hold - previous poisition
@@ -103,6 +103,9 @@ int controllerPrint(){
 
 void increment(){
   i++;
+  if(i>3){
+    i=1;
+  }
 }
 
 
@@ -122,29 +125,34 @@ void pre_auton(void) {
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
   
-  /*while (true){
+  while (true){
     switcher.pressed(increment);
-
+    //Brain.Screen.clearLine();
+     Brain.Screen.setCursor(1, 1);
+    Brain.Screen.print("PRESS TO CHANGE");
+      Brain.Screen.setCursor(4, 1);
+      std::cout<<"i="<<i<<std::endl;
     if (i==1){
-      Brain.Screen.clearLine();
-      strat = fourR;
-      Brain.Screen.print("Four Rings");
+      //Brain.Screen.clearLine();
+      strat = positiveSide;
+      std::cout<<"Positive Side"<<std::endl;
+      Brain.Screen.print("Positive Rush      ");
     }
     else if (i==2){
-      Brain.Screen.clearLine();
-      strat = skill;
-      Brain.Screen.print("Skills");
+      //Brain.Screen.clearLine();
+      strat = negativeWP;
+      std::cout<<"Negative WP"<<std::endl;
+      Brain.Screen.print("Negative WP      ");
     }
     else if (i==3){
-      Brain.Screen.clearLine();
-      strat = safe;
-      Brain.Screen.print("Safety");
-    } 
-    else{
-      i=0;
+      //Brain.Screen.clearLine();
+      strat = soloWP;
+      std::cout<<"Solo WP"<<std::endl;
+      Brain.Screen.print("Solo WP        ");
     }
+    wait(100, msec); 
   }
-  */
+  
 
   
 }
@@ -167,17 +175,10 @@ void autonomous(void) {
     fourR, safe, skill
     1 = blue
     -1 = red
-
-    left = red
-    right = blue
-
-    a = fourRings
-    b = safety
-    x = skills (-1` side)
   */
 
-  side = 1;
-  autonSelector(skill, side);
+  side = -1;
+  autonSelector(strat, side);
 
 }
 
@@ -193,7 +194,7 @@ void autonomous(void) {
 void usercontrol(void){
   thread controllerPrinting = thread(controllerPrint); // Allows controller print function to run on it's own.
   // Use thread to run too things at a time.
-  bool i = false;
+  bool il = false;
   color alliance;
   side = 1;
 
@@ -266,8 +267,8 @@ void usercontrol(void){
     }
 
     if (controller1.ButtonB.pressing()){
-      i = !i;
-      clampAuto(i);
+      il = !il;
+      clampAuto(il);
     }
 
     if (controller1.ButtonDown.pressing()){

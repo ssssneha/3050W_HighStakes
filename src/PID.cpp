@@ -16,19 +16,27 @@
 void drive(float left, float right, int waitTime);
 void driveStop(brakeType E = brake);
 
-void PIDturn(float target){
+void PIDturn(float target, float accuracy){
   float kp = 0.35; // Proportional constant
   float ki = 0.001; // Integral constant
   float kd = 0.89; // Derivative constant
   float yawDeg = gyro4.yaw(deg);
-  float accuracy = 2.5;
   float error = target - yawDeg; // Yaw returns -180 to 180, 0 being robot's starting position.
+
+// Adjust error to be within -180 to 180 range
+  while (error > 180) error -= 360;
+  while (error < -180) error += 360;
+
   float totalError = 0;
   float prevError = error;
 
   while(fabs(error)>accuracy){
     yawDeg = gyro4.yaw(deg);
     error = target - yawDeg;
+
+    while (error > 180) error -= 360;
+    while (error < -180) error += 360;
+    
     float output = kp*error + ki*totalError + kd*(error-prevError);
     std::cout<<"ANGLE error: "<<error<<", YawDeg: "<<yawDeg<<std::endl;
     totalError+=error;

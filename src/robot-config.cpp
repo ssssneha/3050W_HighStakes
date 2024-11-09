@@ -24,7 +24,7 @@ inertial gyro4 = inertial(PORT11);
 optical colorS = optical(PORT19);
 
 //Initiate and define Intake motor
-motor intake = motor(PORT12, ratio18_1, true);
+motor intake = motor(PORT15, ratio18_1, true);
 
 //Initiate and define Belt motors
 motor lift1 = motor(PORT5, ratio18_1, false);
@@ -35,7 +35,7 @@ pneumatics clamp = pneumatics(Brain.ThreeWirePort.H);
 pneumatics StakeMech = pneumatics(Brain.ThreeWirePort.G);
 
 //Initiate and define AutonSelector
-limit switcher = limit(Brain.ThreeWirePort.A);
+limit switcher = limit(Brain.ThreeWirePort.B);
 
 //Initiate and define AutoClamp
 distance dist = distance(PORT7);

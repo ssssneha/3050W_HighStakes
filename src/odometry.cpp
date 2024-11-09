@@ -19,7 +19,7 @@ point robot = point(0, 0);
 #include <string>
 
 int drivePID(float target, float accuracy = 1);
-int PIDturn(float target);
+int PIDturn(float target, float accuracy = 1);
 
 void point::print()
 {

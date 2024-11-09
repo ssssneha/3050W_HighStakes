@@ -15,42 +15,239 @@
     ╚═╝  ╚═╝   ╚═════╝      ╚═╝      ╚═════╝   ╚═╝  ╚═══╝
 */
 
+/*
+  ███████╗██╗  ██╗██╗██╗     ██╗     ███████╗     ██████╗ ██████╗ ██╗██████╗ 
+  ██╔════╝██║ ██╔╝██║██║     ██║     ██╔════╝    ██╔════╝ ██╔══██╗██║██╔══██╗
+  ███████╗█████╔╝ ██║██║     ██║     ███████╗    ██║  ███╗██████╔╝██║██║  ██║
+  ╚════██║██╔═██╗ ██║██║     ██║     ╚════██║    ██║   ██║██╔══██╗██║██║  ██║
+  ███████║██║  ██╗██║███████╗███████╗███████║    ╚██████╔╝██║  ██║██║██████╔╝
+  ╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝╚═╝╚═════╝ 
+
+  +-----------------+-----------------+
+  |+ blue           | + red           |
+  |      Grid       |      Grid       |
+  |      Section    |      Section    |
+  |        1        |        2        |
+  |                 |                 |
+  +-----------------+-----------------+
+  |- blue           | - red           |
+  |      Grid       |      Grid       |
+  |      Section    |      Section    |
+  |        3        |        4        |
+  |                 |                 |
+  +-----------------+-----------------+
+*/
+
 
 int drivePID(float target, float accuracy = 1, float kp = 4.5);
-int PIDturn(float target);
+int PIDturn(float target, float accuracy = 1);
 int belt(int speed);
-void fourRings(float side);
+
 void safety();
-void skills();
-void rush();
+
 void test();
-void winPoint();
 void increment();
-void negative();
 void driveStop(brakeType E = brake);
 void turnToPoint(point target);
 void arcTurn(float distance, float radius, float speed);
+void autonSelector(AUTON strat, float side);
+
+
 
 // 1 = blue
 // -1 = red
 
-
-
 void autonSelector(AUTON strat, float side){
     switch(strat){
-        case fourR:
-            fourRings(side);
+        case positiveSide:
+            positive(side);
         break;
-        case safe:
-            safety();
+        case negativeWP:
+            negative(side);
+        break;
+        case soloWP:
+            winPoint(side);
         break;
         case skill:
             skills();
         break;
-        case goalRush:
-            negative();
-        break;
     }
+}
+
+/*
+  ██╗███╗   ██╗    ██╗   ██╗███████╗███████╗
+  ██║████╗  ██║    ██║   ██║██╔════╝██╔════╝
+  ██║██╔██╗ ██║    ██║   ██║███████╗█████╗  
+  ██║██║╚██╗██║    ██║   ██║╚════██║██╔══╝  
+  ██║██║ ╚████║    ╚██████╔╝███████║███████╗
+  ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚══════╝╚══════╝
+*/
+
+void skills(){
+  // Path
+  //drivePID(50);
+  //intake.spin(reverse);
+
+  // alliance stake
+  intake.setVelocity(100, percent);
+  belt(86);
+  drivePID(-3);
+  // turn to and clamp mogo
+  PIDturn(-110);
+  drivePID(-26,1,3.0);
+  clamp.set(!clamp.value());
+  intake.spin(reverse);
+  // grid section 2
+  //belt(48);
+  PIDturn(0);
+  drivePID(24);
+  PIDturn(55);
+  drivePID(35);
+  drivePID(-12);
+  wait(500, msec);
+  PIDturn(179);
+  drivePID(24);
+  drivePID(24);
+  PIDturn(-35);
+  drivePID(-7);
+  clamp.set(!clamp.value());
+  drivePID(8);
+  drivePID(-7);
+  
+  // grid section 1
+  drivePID(16);
+  PIDturn(0);
+  drivePID(46);
+  PIDturn(-45);
+  drivePID(48);
+  PIDturn(-90);
+  drivePID(-48);
+  drivePID(40);
+  PIDturn(90);
+  drivePID(-5, 1, 3.0);
+  clamp.set(!clamp.value());
+  
+}
+
+// working
+void winPoint(float side){
+  intake.setVelocity(100, percent);
+  drivePID(-27,1,3.5);
+  clamp.set(!clamp.value());
+  //wait(1, sec);
+  intake.spin(reverse);
+  belt(60);
+  wait(500, msec);
+  PIDturn(-80*side);
+  //belt(0);
+  drivePID(24);
+  wait(100, msec);
+  intake.spin(forward);
+  PIDturn(65*side);
+  wait(100, msec);
+  drivePID(28,1,5.5);
+  clamp.set(!clamp.value());
+  drivePID(20,1,5.5);
+  PIDturn(90*side);
+  intake.spin(reverse);
+
+  drivePID(25,1,5.5);
+  PIDturn(38*side);
+  drivePID(-19.5,1,3.5);
+  clamp.set(!clamp.value());
+  belt(60);  
+  PIDturn(90*side);
+  drivePID(23,1,6);
+  //wait(500, msec);
+  PIDturn(85*side);
+  drivePID(-38,1,6);  
+}
+
+void negative(float side){
+  drivePID(-13);
+  PIDturn(-90*side);
+  drivePID(-6);
+  intake.setVelocity(100, percent);
+  belt(100);
+  intake.spin(forward);
+  wait(1000, msec);
+  drivePID(15);
+  // turn to and clamp mogo
+  PIDturn(-210*side);
+  wait(100, msec);
+  drivePID(-20);
+  drivePID(-6, 1, 3.5);
+  clamp.set(!clamp.value());
+  // turn to and intake the rings
+  PIDturn(-45*side);
+  intake.spin(reverse);
+
+  belt(75);
+  drivePID(20);
+  wait(500, msec);
+  PIDturn(-5*side);
+  drivePID(10);
+  PIDturn(125*side);
+  drivePID(20,1,5);
+  PIDturn(-170*side);
+  drivePID(20,1,10);
+  /* 
+  PIDturn(-90);
+  drivePID(24);
+  PIDturn(-45);
+  drivePID(24);
+  */
+}
+
+void positive(float side){
+  intake.setVelocity(100, percent);
+  //belt(60);
+  drivePID(-28);
+  //wait(500, msec);
+  PIDturn(25*side);
+  drivePID(-8,1,3.5);
+  clamp.set(!clamp.value());
+  belt(60);
+  wait(1000, msec);
+  belt(0);
+  PIDturn(0*side);
+  intake.spin(reverse);
+  drivePID(15,1,3.5);
+  wait(500, msec);
+  clamp.set(!clamp.value());
+  PIDturn(89*side);
+
+  drivePID(-16);
+  drivePID(-6, 1, 3.0);
+  clamp.set(!clamp.value());
+  belt(60);
+  wait(500, msec);
+  //intake.stop();
+  PIDturn(225*side);
+  drivePID(13);
+}
+
+/*
+  ███╗   ██╗ ██████╗ ████████╗    ██╗███╗   ██╗    ██╗   ██╗███████╗███████╗
+  ████╗  ██║██╔═══██╗╚══██╔══╝    ██║████╗  ██║    ██║   ██║██╔════╝██╔════╝
+  ██╔██╗ ██║██║   ██║   ██║       ██║██╔██╗ ██║    ██║   ██║███████╗█████╗  
+  ██║╚██╗██║██║   ██║   ██║       ██║██║╚██╗██║    ██║   ██║╚════██║██╔══╝  
+  ██║ ╚████║╚██████╔╝   ██║       ██║██║ ╚████║    ╚██████╔╝███████║███████╗
+  ╚═╝  ╚═══╝ ╚═════╝    ╚═╝       ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚══════╝╚══════╝
+*/
+
+void test(){
+  turnToPoint(point(25,25));
+}
+
+void safety(){
+  // Path
+  drivePID(-30);
+  clamp.set(!clamp.value());
+  wait(1, sec);
+  intake.spin(reverse);
+  belt(48);
+  wait(1, sec);
 }
 
 void fourRings(float side){
@@ -75,155 +272,4 @@ void fourRings(float side){
   PIDturn(186.489);
   drivePID(60.494);
   PIDturn(180);*/
-}
-
-void safety(){
-  // Path
-  drivePID(-30);
-  clamp.set(!clamp.value());
-  wait(1, sec);
-  intake.spin(reverse);
-  belt(48);
-  wait(1, sec);
-}
-
-void skills(){
-  // Path
-  //drivePID(50);
-  //intake.spin(reverse);
-  lift2.setVelocity(100, percent);
-  intake.setVelocity(100, percent);
-  lift2.spinFor(1, rev, false);
-  wait(100, msec);
-  lift2.spinFor(1, rev, false);
-  drivePID(-3);
-  PIDturn(-115);
-  drivePID(-24,1,3.0);
-  clamp.set(!clamp.value());
-  intake.spin(reverse);
-  belt(100);
-  PIDturn(0);
-  drivePID(24);
-  PIDturn(50);
-  drivePID(35);
-  drivePID(-10);
-  wait(500, msec);
-  PIDturn(180);
-  drivePID(48);
-
-
-  /*drivePID(13);
-  PIDturn(-90);
-  wait(200, msec);
-  drivePID(-18);
-  wait(500, msec);
-  clamp.set(!clamp.value());
-  PIDturn(35);
-  intake.spin(reverse);
-  belt(45);
-  drivePID(48);
-  PIDturn(177);
-  drivePID(45,1,2);
-  PIDturn(45);
-  */
-}
-
-void rush(){
-  intake.setVelocity(48, percent);
-  drivePID(-28);
-  wait(500, msec);
-  PIDturn(25);
-  drivePID(-12,1,3.5);
-  clamp.set(!clamp.value());
-  belt(45);
-  wait(500, msec);
-  belt(0);
-  PIDturn(-15);
-  intake.spin(reverse);
-  drivePID(15,1,3.5);
-  wait(500, msec);
-  clamp.set(!clamp.value());
-  PIDturn(90);
-  drivePID(-20);
-  drivePID(-8, 1, 3.0);
-  clamp.set(!clamp.value());
-  belt(48);
-  wait(500, msec);
-  intake.stop();
-  PIDturn(225);
-  drivePID(10);
-}
-
-// working
-void winPoint(){
-  intake.setVelocity(100, percent);
-  drivePID(-27,1,3.5);
-  clamp.set(!clamp.value());
-  //wait(1, sec);
-  intake.spin(reverse);
-  belt(48);
-  wait(1, sec);
-  PIDturn(-90);
-  //belt(0);
-  drivePID(24);
-  wait(500, msec);
-  intake.spin(forward);
-  PIDturn(65);
-  wait(500, msec);
-  drivePID(48);
-  PIDturn(90);
-  clamp.set(!clamp.value());
-  intake.spin(reverse);
-  drivePID(24);
-  PIDturn(45);
-  drivePID(-13,1,3.5);
-  clamp.set(!clamp.value());
-  belt(48);  
-  PIDturn(90);
-  drivePID(22);
-  PIDturn(-75);
-  drivePID(65);  
-}
-
-void negative(){
-  drivePID(-15);
-  PIDturn(-90);
-  drivePID(-6);
-  lift2.setVelocity(100, percent);
-  intake.setVelocity(100, percent);
-  lift2.spinFor(1, rev, false);
-  wait(100, msec);
-  lift2.spinFor(1, rev, false);
-  intake.spin(forward);
-  wait(1000, msec);
-  drivePID(15);
-  // turn to and clamp mogo
-  PIDturn(140);
-  wait(100, msec);
-  drivePID(-24);
-  drivePID(-6, 1, 3.5);
-  clamp.set(!clamp.value());
-  // turn to and intake the rings
-  PIDturn(-35);
-  intake.spin(reverse);
-  belt(83);
-  drivePID(15);
-  wait(500, msec);
-  PIDturn(-5);
-  drivePID(7);
-  PIDturn(95);
-  drivePID(10,1,5);
-  PIDturn(75);
-  drivePID(20,1,5);
-
-  /* 
-  PIDturn(-90);
-  drivePID(24);
-  PIDturn(-45);
-  drivePID(24);
-  */
-}
-
-void test(){
-  turnToPoint(point(25,25));
 }
