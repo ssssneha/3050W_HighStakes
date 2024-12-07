@@ -6,6 +6,7 @@ enum AUTON
     negativeWP,
     soloWP,
     skill,
+    tests,
 };
 
 void autonSelector(enum AUTON strat, float side);
@@ -14,3 +15,4 @@ void winPoint(float side);
 void positive(float side);
 void fourRings(float side);
 void skills();
+void negativeRush(float side);

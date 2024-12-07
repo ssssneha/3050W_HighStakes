@@ -45,7 +45,7 @@ int belt(int speed);
 
 void safety();
 
-void test();
+void testW();
 void increment();
 void driveStop(brakeType E = brake);
 void turnToPoint(point target);
@@ -71,6 +71,9 @@ void autonSelector(AUTON strat, float side){
         case skill:
             skills();
         break;
+        case tests:
+            testW();
+          break;
     }
 }
 
@@ -199,10 +202,25 @@ void negative(float side){
   */
 }
 
+void negativeRush(float side){
+  // Path
+  intake.spin(reverse);
+  drivePID(40.526);
+  PIDturn(73.56, 30);
+  drivePID(-17.295);
+  PIDturn(357.879, 30);
+  drivePID(14.694);
+  PIDturn(332.688, 30);
+  drivePID(-37.338);
+  PIDturn(333.664, 30);
+  drivePID(-91.33);
+  PIDturn(356.987, 30);
+}
+
 void positive(float side){
   intake.setVelocity(100, percent);
   //belt(60);
-  drivePID(-28);
+  drivePID(-28,1,5);
   //wait(500, msec);
   PIDturn(25*side);
   drivePID(-8,1,3.5);
@@ -210,12 +228,13 @@ void positive(float side){
   belt(60);
   wait(1000, msec);
   belt(0);
-  PIDturn(0*side);
+  PIDturn(-5*side);
   intake.spin(reverse);
   drivePID(15,1,3.5);
   wait(500, msec);
   clamp.set(!clamp.value());
-  PIDturn(89*side);
+  wait(500, msec);
+  PIDturn(80*side,0.5);
 
   drivePID(-16);
   drivePID(-6, 1, 3.0);
@@ -223,9 +242,12 @@ void positive(float side){
   belt(60);
   wait(500, msec);
   //intake.stop();
-  PIDturn(225*side);
-  drivePID(13);
+  PIDturn(215*side);
+  drivePID(14);
 }
+
+
+
 
 /*
   ███╗   ██╗ ██████╗ ████████╗    ██╗███╗   ██╗    ██╗   ██╗███████╗███████╗
@@ -236,8 +258,19 @@ void positive(float side){
   ╚═╝  ╚═══╝ ╚═════╝    ╚═╝       ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚══════╝╚══════╝
 */
 
-void test(){
-  turnToPoint(point(25,25));
+void testW(){
+    // Path
+
+    drivePID(-12.941, 30);
+    PIDturn(295.801);
+    drivePID(44.295);
+    PIDturn(318.532);
+    drivePID(30.31);
+    PIDturn(75.964);
+    drivePID(-18.511, 30);
+    PIDturn(339.151);
+    drivePID(-120.954, 30);
+    PIDturn(0);
 }
 
 void safety(){

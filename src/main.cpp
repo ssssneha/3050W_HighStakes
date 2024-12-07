@@ -177,8 +177,8 @@ void autonomous(void) {
     -1 = red
   */
 
-  side = -1;
-  autonSelector(strat, side);
+  side = 1;
+  autonSelector(tests, side);
 
 }
 
@@ -218,15 +218,27 @@ void usercontrol(void){
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-    float leftJoystick = controller1.Axis3.position();
+
+
+    if ((abs(controller1.Axis3.position(pct)) < 5) and (abs(controller1.Axis2.position(pct))) < 5)
+      {
+          driveStop(brake);
+      }
+    else
+      {
+          drive(controller1.Axis3.position(), controller1.Axis2.position(), 0);
+      }
+
+    /*float leftJoystick = controller1.Axis3.position();
     float rightJoystick = controller1.Axis2.position();
 
-    float a = 2;
+    float a = 1;
 
-    float left_output = ((100*(pow(fabs(leftJoystick),a)))/pow(100,a))*(leftJoystick/fabs(leftJoystick));
-    float right_output = ((100*(pow(fabs(rightJoystick),a)))/pow(100,a))*(rightJoystick/fabs(rightJoystick));
+    //float left_output = ((100*(pow(fabs(leftJoystick),a)))/pow(100,a))*(leftJoystick/fabs(leftJoystick));
+    //float right_output = ((100*(pow(fabs(rightJoystick),a)))/pow(100,a))*(rightJoystick/fabs(rightJoystick));
 
-    drive(left_output, right_output, 0);
+    drive(leftJoystick, rightJoystick, 0);*/
+    
     if(colorS.isNearObject()){
       std::cout<<"yay";
       colorS.setLight(ledState::on);
@@ -248,7 +260,7 @@ void usercontrol(void){
 
     if (controller1.ButtonR2.pressing()){
       intake.spin(fwd, -100.0, pct);
-      belt(100);
+      belt(78);
       std::cout<<"Color: "<<colorS.hue()<<std::endl;
       //48
     }
