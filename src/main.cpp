@@ -132,13 +132,13 @@ void pre_auton(void) {
     Brain.Screen.print("PRESS TO CHANGE");
       Brain.Screen.setCursor(4, 1);
       std::cout<<"i="<<i<<std::endl;
-    if (i==1){
+    if (i==2){
       //Brain.Screen.clearLine();
       strat = positiveSide;
       std::cout<<"Positive Side"<<std::endl;
       Brain.Screen.print("Positive Rush      ");
     }
-    else if (i==2){
+    else if (i==1){
       //Brain.Screen.clearLine();
       strat = negativeWP;
       std::cout<<"Negative WP"<<std::endl;
@@ -178,7 +178,7 @@ void autonomous(void) {
   */
 
   side = 1;
-  autonSelector(tests, side);
+  autonSelector(strat, side);
 
 }
 

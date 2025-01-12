@@ -87,6 +87,8 @@ void autonSelector(AUTON strat, float side){
 */
 
 void skills(){
+  int side = 1;
+  // -1 blue (opposite of normal)
   // Path
   //drivePID(50);
   //intake.spin(reverse);
@@ -96,22 +98,22 @@ void skills(){
   belt(86);
   drivePID(-3);
   // turn to and clamp mogo
-  PIDturn(-110);
+  PIDturn(-110*side);
   drivePID(-26,1,3.0);
   clamp.set(!clamp.value());
   intake.spin(reverse);
   // grid section 2
   //belt(48);
-  PIDturn(0);
+  PIDturn(-2.5*side);
   drivePID(24);
-  PIDturn(55);
-  drivePID(35);
+  PIDturn(55*side);
+  drivePID(30);
   drivePID(-12);
   wait(500, msec);
-  PIDturn(179);
-  drivePID(24);
-  drivePID(24);
-  PIDturn(-35);
+  PIDturn(179*side);
+  drivePID(24,1,2.5);
+  drivePID(24,1,2.5);
+  PIDturn(-35*side);
   drivePID(-7);
   clamp.set(!clamp.value());
   drivePID(8);
@@ -119,16 +121,19 @@ void skills(){
   
   // grid section 1
   drivePID(16);
-  PIDturn(0);
+  PIDturn(0*side);
   drivePID(46);
-  PIDturn(-45);
+  PIDturn(-45*side);
   drivePID(48);
-  PIDturn(-90);
+  PIDturn(-90*side);
   drivePID(-48);
   drivePID(40);
-  PIDturn(90);
-  drivePID(-5, 1, 3.0);
+  PIDturn(90*side);
+  drivePID(12);
   clamp.set(!clamp.value());
+  
+
+
   
 }
 
@@ -167,33 +172,45 @@ void winPoint(float side){
 }
 
 void negative(float side){
-  drivePID(-13);
+  //wait(1000, msec);
+  clamp.set(!clamp.value());
+  drivePID(-12,1,6);
   PIDturn(-90*side);
-  drivePID(-6);
+  drivePID(-6,1,6);
   intake.setVelocity(100, percent);
   belt(100);
   intake.spin(forward);
   wait(1000, msec);
-  drivePID(15);
-  // turn to and clamp mogo
-  PIDturn(-210*side);
-  wait(100, msec);
-  drivePID(-20);
-  drivePID(-6, 1, 3.5);
-  clamp.set(!clamp.value());
-  // turn to and intake the rings
-  PIDturn(-45*side);
-  intake.spin(reverse);
+  drivePID(15,1,6);
 
+  // turn to and clamp mogo
+  PIDturn(-215*side);
+  wait(100, msec);
+  clamp.set(!clamp.value());
+  drivePID(-18,1,6);
+  drivePID(-8,1,4.5);
+  clamp.set(!clamp.value());
+
+  // turn to and intake the rings
+  // turn to side ring first
+
+  // 
+  // turning to top rings first
+  PIDturn(-55*side);
+  intake.spin(reverse);
   belt(75);
-  drivePID(20);
-  wait(500, msec);
+  drivePID(15,0.5,6);
+  wait(250, msec);
+  PIDturn(-20*side);
+  drivePID(7,1,6);
   PIDturn(-5*side);
-  drivePID(10);
-  PIDturn(125*side);
-  drivePID(20,1,5);
-  PIDturn(-170*side);
-  drivePID(20,1,10);
+  drivePID(10,1,6);
+  drivePID(-3,1,6);
+  PIDturn(95*side);
+  drivePID(20,1,6);
+  PIDturn(-200*side);
+  drivePID(30,1,10);
+  
   /* 
   PIDturn(-90);
   drivePID(24);
@@ -218,7 +235,18 @@ void negativeRush(float side){
 }
 
 void positive(float side){
+  drivePID(-18,1,6);
+  drivePID(-8,1,4);
+  clamp.set(!clamp.value());
   intake.setVelocity(100, percent);
+  belt(100);  
+  wait(500, msec);
+  PIDturn(85*side);
+  drivePID(36);
+}
+
+/*
+intake.setVelocity(100, percent);
   //belt(60);
   drivePID(-28,1,5);
   //wait(500, msec);
@@ -244,11 +272,7 @@ void positive(float side){
   //intake.stop();
   PIDturn(215*side);
   drivePID(14);
-}
-
-
-
-
+  */
 /*
   ███╗   ██╗ ██████╗ ████████╗    ██╗███╗   ██╗    ██╗   ██╗███████╗███████╗
   ████╗  ██║██╔═══██╗╚══██╔══╝    ██║████╗  ██║    ██║   ██║██╔════╝██╔════╝
