@@ -88,11 +88,147 @@ void autonSelector(AUTON strat, float side){
 
 void skills(){
   int side = 1;
+  float a = -90;
+
+  // Path
+  intake.setVelocity(100, percent);
+  belt(86);
+  wait(500, msec);
+  // Path
+
+  // Path
+
+  drivePID(5.15);
+  PIDturn(338.199+a);
+  drivePID(-28.89);
+  PIDturn(72.868+a);
+  drivePID(21.555);
+  PIDturn(317.54+a-180);
+  drivePID(36.24);
+  PIDturn(359.145+a-180);
+  drivePID(14.379);
+  PIDturn(303.69+a);
+  drivePID(27.853);
+  PIDturn(270.655+a);
+  drivePID(37.555);
+  PIDturn(16.699+a);
+  drivePID(-20.163);
+  // dropped
+  PIDturn(78.139+a);
+  drivePID(91.874);
+  PIDturn(39.92+a);
+  drivePID(54.84);
+  PIDturn(0.424+a);
+  drivePID(-57.94);
+  PIDturn(350.832+a-180);
+  drivePID(-68.687);
+  PIDturn(39.89+a-180);
+  drivePID(37.476);
+  PIDturn(315+a);
+  drivePID(100.449);
+  // moving under ladder
+  PIDturn(356.987+a);
+  drivePID(16.331);
+  PIDturn(265.236+a-180);
+  drivePID(-12.92);
+  PIDturn(339.995+a);
+  drivePID(-47.044);
+  PIDturn(37.176+a);
+  drivePID(40.128);
+  PIDturn(67.733+a);
+  drivePID(29.449);
+  PIDturn(307.385+a-180);
+  drivePID(28.627);
+  PIDturn(83.884+a);
+  drivePID(36.257);
+  PIDturn(347.735+a-180);
+  drivePID(-15.152);
+
+
+
+
+
+
+
   // -1 blue (opposite of normal)
   // Path
   //drivePID(50);
   //intake.spin(reverse);
 
+  // Path
+  /*intake.setVelocity(100, percent);
+  belt(86);
+  //drivePID(-3);
+  wait(500, msec);
+  PIDturn(-110*side);
+  drivePID(-24.542);
+  clamp.set(!clamp.value());
+  drivePID(-6);
+  PIDturn(25);
+  drivePID(23.775);
+  PIDturn(132);
+  drivePID(-32.334);
+  PIDturn(90);
+  drivePID(13.472);
+  PIDturn(129);
+  drivePID(18.768);
+
+  PIDturn(180);
+  drivePID(47.802);
+  PIDturn(-78);
+  drivePID(-18.648);
+  clamp.set(!clamp.value());
+  drivePID(6);
+  drivePID(-6);
+  // holding ring (add later)
+  PIDturn(-12);
+  drivePID(91.418);
+
+  PIDturn(263);
+  drivePID(55.524);
+  PIDturn(166);
+  drivePID(-71.548);
+  // CRYING
+  PIDturn(78);
+  drivePID(75.841);
+  //PIDturn(34.242);
+  drivePID(-75.017);
+  clamp.set(!clamp.value());
+  PIDturn(135);
+  drivePID(20.542);
+
+  PIDturn(-135);
+  drivePID(100.656);
+  PIDturn(-96);
+  drivePID(11.931);
+
+  PIDturn(23.629);
+  drivePID(-13.837);
+  clamp.set(!clamp.value());
+  PIDturn(-157);
+  drivePID(-42.097);
+  clamp.set(!clamp.value());
+  */
+  /*
+  PIDturn(46.302);
+  drivePID(32.876);
+  PIDturn(62.916);
+  drivePID(26.103);
+  PIDturn(297.061);
+  drivePID(-27.284);
+  PIDturn(270);
+  drivePID(-34.069);
+  PIDturn(18.667);
+  drivePID(-20.628);
+  PIDturn(0);
+  */
+
+
+
+
+
+
+ /*
   // alliance stake
   intake.setVelocity(100, percent);
   belt(86);
@@ -131,7 +267,7 @@ void skills(){
   PIDturn(90*side);
   drivePID(12);
   clamp.set(!clamp.value());
-  
+  */
 
 
   

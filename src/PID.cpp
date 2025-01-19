@@ -102,7 +102,7 @@ void drivePID(float target, float accuracy, float kp){
       integral = 0;
     }
   
-    power = error*kp + integral*ki + derivative*kd;
+    power = error*kp + integral*ki + derivative*kd + 30;
 
     totalError += error;
     prevError = error;

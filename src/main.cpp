@@ -178,7 +178,7 @@ void autonomous(void) {
   */
 
   side = 1;
-  autonSelector(strat, side);
+  autonSelector(skill, side);
 
 }
 
