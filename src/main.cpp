@@ -178,7 +178,7 @@ void autonomous(void) {
   */
 
   side = 1;
-  autonSelector(skill, side);
+  autonSelector(strat, side);
 
 }
 
@@ -226,9 +226,14 @@ void usercontrol(void){
       }
     else
       {
-          drive(controller1.Axis3.position(), controller1.Axis2.position(), 0);
-      }
+        float a = 1;
+        float max_speed = 100;
 
+        float left_output = ((max_speed*(pow(fabs(controller1.Axis3.position()),a)))/pow(100,a))*(controller1.Axis3.position()/fabs(controller1.Axis3.position()));
+        float right_output = ((max_speed*(pow(fabs(controller1.Axis2.position()),a)))/pow(100,a))*(controller1.Axis2.position()/fabs(controller1.Axis2.position()));
+        drive(left_output, right_output, 0);
+      }
+ 
     /*float leftJoystick = controller1.Axis3.position();
     float rightJoystick = controller1.Axis2.position();
 
@@ -278,7 +283,7 @@ void usercontrol(void){
       belt(0);
     }
 
-    if (controller1.ButtonB.pressing()){
+    if (controller1.ButtonY.pressing()){
       il = !il;
       clampAuto(il);
     }

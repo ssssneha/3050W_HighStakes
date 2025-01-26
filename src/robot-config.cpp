@@ -6,7 +6,7 @@ brain Brain;
 controller controller1 = controller(primary);
 
 // Initiate and define base motors
-motor leftFwd = motor(PORT8, ratio6_1, true);
+motor leftFwd = motor(PORT7, ratio6_1, true);
 motor leftMid = motor(PORT4, ratio6_1, false);
 motor leftBack = motor(PORT3, ratio6_1, true);
 //36 to 60
